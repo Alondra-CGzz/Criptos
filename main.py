@@ -2,7 +2,7 @@ import os
 from Modulos import datos_tratados_00 as data
 from Modulos import mod_utiles as mod
 from Modulos import consultas as info
-
+from Modulos import estadisticas as cal
 
 def limpiar():
     os.system("cls")
@@ -32,7 +32,8 @@ if __name__ == '__main__':
 
                 #submenu
                 opcion1 = mod.validar("""
-    - Información posible a consultar -                  
+    - Información posible a consultar -      
+                                                  
         1) Id
         2) Simbología
         3) Rank
@@ -42,7 +43,7 @@ if __name__ == '__main__':
         7) Número de monedas que se han comercializado
         8) Suministro circulante
         9) Suministro máximo posible
-                      """)         
+                      """, 9)         
                 info.consultar_dato(monedas,coin, opcion1)
 
             elif opcion == 2:
@@ -55,7 +56,8 @@ if __name__ == '__main__':
         2) Rango en los precios de las monedas
         3) Recomendación de 5 monedas según el porcentaje de cambio cada semana 
                       
-    Seleccione una opción: """) 
+    Seleccione una opción: """, 3)   
+                cal.calculos(opcion3)
 
             elif opcion == 4:
                 opcion4 = mod.validar("""
@@ -68,7 +70,7 @@ if __name__ == '__main__':
         8) Suministro circulante
         9) Suministro máximo posible
                       
-    Seleccione una opción: """)  
+    Seleccione una opción: """, 9)  
                 
             elif opcion == 5:
                 pass
