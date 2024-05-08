@@ -1,5 +1,6 @@
 import requests, json, os
 from openpyxl import Workbook
+from Modulos import mod_utiles as mod
 
 def request(limite):
     url = "https://api.coinlore.net/api/tickers/" 
@@ -12,7 +13,7 @@ def request(limite):
 
 
 def crear_json_coins(limite):
-    print("actual json",os.getcwd())
+    print("actual json", os.getcwd())
     datos = request(limite)
 
     #eliminar lo que no se usara
@@ -24,6 +25,7 @@ def crear_json_coins(limite):
         del i["tsupply"]
         del i["percent_change_1h"]
 
+    #guardar el archivo
     #cambiamos a la ruta de consulta api  
     ruta = os.getcwd()
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
@@ -31,10 +33,10 @@ def crear_json_coins(limite):
     #crear el json de las monedas que aparecieron ante el usuario
     with open("datos_de_monedas.json", "w") as archivo: 
         json.dump(datos, archivo, indent = 3)
+    os.chdir(ruta)
 
 
 def crear_xlsx_coins(limite):
-    print("actual xlsx",os.getcwd())
     datos = request(limite)
 
     book = Workbook()
@@ -58,9 +60,27 @@ def crear_xlsx_coins(limite):
         sheet[f"J{cont}"] = i["msupply"]
         cont += 1
 
+    #guardar el archivo
+    ruta = os.getcwd()
+    os.chdir(f"{ruta}\\ReportesDeConsultaApi")
     book.save("datos_de_monedas.xlsx")
+    os.chdir(ruta)
     
 
+def dato(lista):
+    total = len(lista)
+    while True: 
+        try: 
+            moneda = int(input("Ingrese el número de la moneda que desea buscar: "))
+            if moneda<0 or moneda>total:
+                print("Ingrese un valor númerico valido")
+            else:
+                break
+
+        except ValueError: 
+            print("Ingrese un valor númerico valido")
+        
+    return moneda
 
 
 def coins(cont,lista, start = 0, url = "https://api.coinlore.net/api/tickers/"):  
@@ -79,21 +99,11 @@ def coins(cont,lista, start = 0, url = "https://api.coinlore.net/api/tickers/"):
                 lista.append(nom)
                 print(f"{cont}-{nom}")
                 cont += 1
-                
-        continuar = input("\n¿Desea continuar listando? \tSi \tNo\n").lower()#
+        
+        
+        continuar = mod.validar("\n¿Desea continuar listando? \t1-Si \t2-No\n",2)
         if continuar == "si":
-            coins(cont,lista, start= start+11)
+            coins(cont, lista, start= start+11)
 
-        total = len(lista)
-        while True: 
-            try: 
-                moneda = int(input("Ingrese el número de la moneda que desea buscar: "))
-                if moneda<0 or moneda>total:
-                    print("Ingrese un valor númerico valido")
-                else:
-                    break
-
-            except ValueError: 
-                print("Ingrese un valor númerico valido")
-            
-        return lista, moneda
+        
+        return lista

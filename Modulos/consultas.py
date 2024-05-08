@@ -1,8 +1,7 @@
 import os, json
 def consultar_dato(lista_monedas,index_moneda, opcion_menu):
     ruta = os.getcwd()
-    os.chdir(f"{ruta}")
-    print("ruta consulta", ruta)
+    os.chdir(f"{ruta}\\ReportesDeConsultaApi")
 
     #abrimos el archivo 
     with open("datos_de_monedas.json") as archivo:
@@ -17,3 +16,5 @@ def consultar_dato(lista_monedas,index_moneda, opcion_menu):
     print(f"""
         *{lista_monedas[index_moneda].upper()}*
     {opciones_nombre[opcion_menu]}: {datos[index_moneda][index_opcion]}\n""")
+
+    os.chdir(ruta)

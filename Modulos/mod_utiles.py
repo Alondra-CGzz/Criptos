@@ -1,9 +1,12 @@
+#funcion del cambio de ruta
+#hacer menu con un array
+
 
 def validar(msj, lim):
     while True:
         try: 
             valor = int(input(msj))
-            if valor<0 or valor>lim:
+            if valor<=0 or valor>lim:
                 print("Ingrese un valor númerico valido")
             else:
                 break
