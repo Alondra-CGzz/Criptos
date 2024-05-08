@@ -13,13 +13,12 @@ def request(limite):
 
 
 def crear_json_coins(limite):
-    print("actual json", os.getcwd())
     datos = request(limite)
 
     #eliminar lo que no se usara
     for i in datos:
         del i["volume24"]
-        del i["name"]
+        del i["nameid"]
         del i["price_usd"]
         del i["market_cap_usd"]
         del i["tsupply"]
@@ -42,7 +41,7 @@ def crear_xlsx_coins(limite):
     book = Workbook()
     sheet = book.active
     #subtema
-    lista = [ "Id", "Simbología", "Nameid", "Rank", "Porcentaje cada 24 horas", "Porcentaje cada 7 días", "Precio en btc", "Coins comercializadas", "Suministro circulante", "Suministro máximo"]
+    lista = [ "Id", "Simbología", "Name", "Rank", "Porcentaje cada 24 horas", "Porcentaje cada 7 días", "Precio en btc", "Coins comercializadas", "Suministro circulante", "Suministro máximo"]
     sheet.append(lista)
     
     #los datos
@@ -50,7 +49,7 @@ def crear_xlsx_coins(limite):
     for i in datos: 
         sheet[f"A{cont}"] = i["id"]
         sheet[f"B{cont}"] = i["symbol"]
-        sheet[f"C{cont}"] = i["nameid"]
+        sheet[f"C{cont}"] = i["name"]
         sheet[f"D{cont}"] = i["rank"] 
         sheet[f"E{cont}"] = i["percent_change_24h"]
         sheet[f"F{cont}"] = i["percent_change_7d"] 
@@ -66,7 +65,6 @@ def crear_xlsx_coins(limite):
     book.save("datos_de_monedas.xlsx")
     os.chdir(ruta)
     
-
 def dato(lista):
     total = len(lista)
     while True: 
@@ -78,10 +76,17 @@ def dato(lista):
                 break
 
         except ValueError: 
-            print("Ingrese un valor númerico valido")
-        
+            print("Ingrese un valor númerico valido")    
     return moneda
 
+def liste(datos, lista, cont):
+    for coin in datos:
+        nom = coin["name"]
+        lista.append(nom)
+        print(f"{cont}-{nom}")
+        cont += 1
+    total = cont
+    return lista, total
 
 def coins(cont,lista, start = 0, url = "https://api.coinlore.net/api/tickers/"):  
     """Por si acaso el limite lo queremos de 11 datos lo marcare con #"""
@@ -94,16 +99,11 @@ def coins(cont,lista, start = 0, url = "https://api.coinlore.net/api/tickers/"):
         #limite de las monedas que se trataran
         if datos != []:
             print("\n\t**Lista de coins ha tratar**\n")
-            for coin in datos:
-                nom = coin["name"]
-                lista.append(nom)
-                print(f"{cont}-{nom}")
-                cont += 1
+            lista, cont = liste(datos, lista, cont)
         
         
         continuar = mod.validar("\n¿Desea continuar listando? \t1-Si \t2-No\n",2)
-        if continuar == "si":
+        if continuar == 1:
             coins(cont, lista, start= start+11)
 
-        
         return lista
