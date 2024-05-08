@@ -6,6 +6,7 @@ from Modulos import mod_utiles as mod
 def acceder_json():
     ruta = os.getcwd()
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
+    
     try: 
         with open("datos_de_monedas.json") as archivo: 
             datos = json.load(archivo)
@@ -13,6 +14,7 @@ def acceder_json():
         coin = data.dato(monedas)
         os.chdir(ruta)
         opcion2 = mod.validar("""
+                              
     - Información posible a consultar -      
                                                   
         1) Id
@@ -30,6 +32,6 @@ def acceder_json():
 
     except FileNotFoundError: 
         print("No hay información reciente")
-    os.chdir(ruta)
+    os.chdir(ruta) #porque habiamos cambiado de ruta y volvemos a la del directorio Pia
     
 

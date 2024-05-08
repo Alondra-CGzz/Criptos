@@ -10,11 +10,21 @@ def limpiar():
 
 if __name__ == '__main__':
     print("""
-          **** CRIPTOMONEDAS ****""")
+         **** ACCESO A LA INFORMACIÓN DE CRIPTOMONEDAS ****""")
+    x = True
+    try:
+        monedas = data.coins(0, [])
+        data.crear_json_coins(len(monedas))
+        data.crear_xlsx_coins(len(monedas))
+    except:
+        limpiar()
+        print("\n\tLo sentimos, no es posible consumir la api\n")
+        x = False
 
     #menu
-    while True:
+    while x:
         try: 
+            limpiar()
             opcion = int(input("""       
 
             - Menú -
@@ -27,16 +37,17 @@ if __name__ == '__main__':
         6) Salir
             
     Seleccione una opción: """))
-            
+            limpiar()
+
 
             if opcion == 1:
+                print("\n\t -- Actualización de datos --\n")
                 monedas = data.coins(0, [])
                 data.crear_json_coins(len(monedas))
                 data.crear_xlsx_coins(len(monedas))
-
                 coin = data.dato(monedas)
-                print(monedas, coin)
 
+                limpiar()
                 opcion1 = mod.validar("""
     - Información posible a consultar -      
                                                   
@@ -54,7 +65,8 @@ if __name__ == '__main__':
 
             elif opcion == 2:  
                 data_descargada.acceder_json()
-                
+            
+
             elif opcion == 3:
                 opcion3 = mod.validar("""
              - Datos -             

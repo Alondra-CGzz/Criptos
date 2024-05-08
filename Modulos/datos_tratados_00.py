@@ -9,7 +9,7 @@ def request(limite):
     if response.status_code == 200:
         archivo = json.loads(response.text)
         datos = archivo.get("data", [])
-        return datos
+    return datos
 
 
 def crear_json_coins(limite):
@@ -69,7 +69,7 @@ def dato(lista):
     total = len(lista)
     while True: 
         try: 
-            moneda = int(input("Ingrese el número de la moneda que desea buscar: "))
+            moneda = int(input("\nIngrese el número de la moneda que desea buscar: "))
             if moneda<0 or moneda>total:
                 print("Ingrese un valor númerico valido")
             else:
@@ -98,7 +98,7 @@ def coins(cont,lista, start = 0, url = "https://api.coinlore.net/api/tickers/"):
 
         #limite de las monedas que se trataran
         if datos != []:
-            print("\n\t**Lista de coins ha tratar**\n")
+            print("\n\t- Lista de coins ha tratar -\n")
             lista, cont = liste(datos, lista, cont)
         
         
@@ -106,4 +106,5 @@ def coins(cont,lista, start = 0, url = "https://api.coinlore.net/api/tickers/"):
         if continuar == 1:
             coins(cont, lista, start= start+11)
 
-        return lista
+    return lista
+
