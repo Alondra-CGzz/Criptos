@@ -1,5 +1,6 @@
 #funcion del cambio de ruta
 #hacer menu con un array
+import os
 
 
 def validar(msj, lim):
@@ -14,3 +15,13 @@ def validar(msj, lim):
             print("Ingrese un valor númerico valido")
             continue
     return valor
+
+def crear_dir():
+    ruta = os.getcwd()
+    try: 
+        os.chdir(f"{ruta}\\ReportesDeConsultaApi")
+    except:
+        os.makedirs(f"{ruta}\\ReportesDeConsultaApi")
+        os.makedirs(f"{ruta}\\ReportesDeDatosNuméricos")
+    os.chdir(ruta)
+

@@ -1,4 +1,4 @@
-import os
+import os, shutil
 from Modulos import mod_utiles as mod
 from Modulos import consultas as info
 from Modulos import estadisticas as cal
@@ -23,8 +23,8 @@ if __name__ == '__main__':
 
     #menu
     while x:
+        mod.crear_dir()
         try: 
-            limpiar()
             opcion = int(input("""       
 
             - Menú -
@@ -37,7 +37,6 @@ if __name__ == '__main__':
         6) Salir
             
     Seleccione una opción: """))
-            limpiar()
 
 
             if opcion == 1:
@@ -47,7 +46,6 @@ if __name__ == '__main__':
                 data.crear_xlsx_coins(len(monedas))
                 coin = data.dato(monedas)
 
-                limpiar()
                 opcion1 = mod.validar("""
     - Información posible a consultar -      
                                                   
@@ -73,9 +71,10 @@ if __name__ == '__main__':
                                                                        
         1) Rango en los precios de las monedas
         2) Recomendación de 5 monedas según el porcentaje de cambio cada semana 
+        3) Porcentajes según el suministro de monedas actual
                       
     Seleccione una opción: """, 3)   
-                cal.calculos(opcion3)
+                cal.estadisticas(len(monedas), opcion3)
 
             elif opcion == 4:
                 opcion4 = mod.validar("""
@@ -91,7 +90,12 @@ if __name__ == '__main__':
     Seleccione una opción: """, 9)  
                 
             elif opcion == 5:
-                pass
+                print("\n\tTodo se borro satisfactoriamente\n")
+                ruta = os.getcwd()
+                shutil.rmtree(f"{ruta}\\ReportesDeConsultaApi")
+                shutil.rmtree(f"{ruta}\\ReportesDeDatosNuméricos")
+
+
             elif opcion == 6:
                 limpiar()
                 print("Que tenga un bonito día! =)")
