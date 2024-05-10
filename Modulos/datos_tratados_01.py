@@ -3,8 +3,7 @@ from Modulos import datos_tratados_00 as data
 from Modulos import consultas as consulta
 from Modulos import mod_utiles as mod
 
-def acceder_json():
-    ruta = os.getcwd()
+def acceder_json(ruta):
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
     
     try: 
@@ -28,7 +27,7 @@ def acceder_json():
         9) Suministro máximo posible
                       """, 9)   
         
-        consulta.consultar_dato(monedas, coin, opcion2 )
+        consulta.consultar_dato(monedas, coin, opcion2, ruta)
 
     except FileNotFoundError: 
         print("No hay información reciente")

@@ -4,6 +4,8 @@ from Modulos import consultas as info
 from Modulos import estadisticas as cal
 from Modulos import datos_tratados_00 as data
 from Modulos import datos_tratados_01 as data_descargada
+ruta_dir_padre= os.path.dirname(os.path.abspath(__file__))
+os.chdir(ruta_dir_padre)
 
 def limpiar():
     os.system("cls")
@@ -12,18 +14,18 @@ if __name__ == '__main__':
     print("""
          **** ACCESO A LA INFORMACIÓN DE CRIPTOMONEDAS ****""")
     x = True
-    try:
-        monedas = data.coins(0, [])
-        data.crear_json_coins(len(monedas))
-        data.crear_xlsx_coins(len(monedas))
-    except:
+    
+    monedas = data.coins(0, [])
+    data.crear_json_coins(len(monedas), ruta_dir_padre)
+    data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
+    """except:
         limpiar()
         print("\n\tLo sentimos, no es posible consumir la api\n")
-        x = False
+        x = False"""
 
     #menu
     while x:
-        mod.crear_dir()
+        mod.crear_dir(ruta_dir_padre)
         try: 
             opcion = int(input("""       
 
@@ -42,8 +44,8 @@ if __name__ == '__main__':
             if opcion == 1:
                 print("\n\t -- Actualización de datos --\n")
                 monedas = data.coins(0, [])
-                data.crear_json_coins(len(monedas))
-                data.crear_xlsx_coins(len(monedas))
+                data.crear_json_coins(len(monedas), ruta_dir_padre)
+                data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
                 coin = data.dato(monedas)
 
                 opcion1 = mod.validar("""
@@ -59,11 +61,10 @@ if __name__ == '__main__':
         8) Suministro circulante
         9) Suministro máximo posible
                       """, 9)         
-                info.consultar_dato(monedas,coin, opcion1)
+                info.consultar_dato(monedas,coin, opcion1, ruta_dir_padre)
 
             elif opcion == 2:  
-                data_descargada.acceder_json()
-            
+                data_descargada.acceder_json(ruta_dir_padre)
 
             elif opcion == 3:
                 opcion3 = mod.validar("""
@@ -74,7 +75,7 @@ if __name__ == '__main__':
         3) Porcentajes según el suministro de monedas actual
                       
     Seleccione una opción: """, 3)   
-                cal.estadisticas(len(monedas), opcion3)
+                cal.estadisticas(len(monedas), opcion3, ruta_dir_padre)
 
             elif opcion == 4:
                 opcion4 = mod.validar("""
@@ -91,9 +92,8 @@ if __name__ == '__main__':
                 
             elif opcion == 5:
                 print("\n\tTodo se borro satisfactoriamente\n")
-                ruta = os.getcwd()
-                shutil.rmtree(f"{ruta}\\ReportesDeConsultaApi")
-                shutil.rmtree(f"{ruta}\\ReportesDeDatosNuméricos")
+                shutil.rmtree(f"{ruta_dir_padre}\\ReportesDeConsultaApi")
+                shutil.rmtree(f"{ruta_dir_padre}\\ReportesDeDatosNuméricos")
 
 
             elif opcion == 6:

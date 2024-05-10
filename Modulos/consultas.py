@@ -1,6 +1,5 @@
 import os, json
-def consultar_dato(lista_monedas,index_moneda, opcion_menu):
-    ruta = os.getcwd()
+def consultar_dato(lista_monedas,index_moneda, opcion_menu, ruta):
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
 
     #abrimos el archivo 

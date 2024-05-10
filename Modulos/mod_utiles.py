@@ -2,6 +2,8 @@
 #hacer menu con un array
 import os
 
+def cambiar(ruta, dir):
+    os.chdir(f"{ruta}\\{dir}")
 
 def validar(msj, lim):
     while True:
@@ -16,8 +18,7 @@ def validar(msj, lim):
             continue
     return valor
 
-def crear_dir():
-    ruta = os.getcwd()
+def crear_dir(ruta):
     try: 
         os.chdir(f"{ruta}\\ReportesDeConsultaApi")
     except:

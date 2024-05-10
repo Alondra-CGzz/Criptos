@@ -12,7 +12,7 @@ def request(limite):
     return datos
 
 
-def crear_json_coins(limite):
+def crear_json_coins(limite, ruta):
     datos = request(limite)
 
     #eliminar lo que no se usara
@@ -25,17 +25,18 @@ def crear_json_coins(limite):
         del i["percent_change_1h"]
 
     #guardar el archivo
-    #cambiamos a la ruta de consulta api  
-    ruta = os.getcwd()
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
-
+    #cambiamos a la ruta de consulta api  
+    
     #crear el json de las monedas que aparecieron ante el usuario
     with open("datos_de_monedas.json", "w") as archivo: 
         json.dump(datos, archivo, indent = 3)
-    os.chdir(ruta)
+
+    rut = os.getcwd()
+    print(rut, "jso")
 
 
-def crear_xlsx_coins(limite):
+def crear_xlsx_coins(limite, ruta):
     datos = request(limite)
 
     book = Workbook()
@@ -60,10 +61,10 @@ def crear_xlsx_coins(limite):
         cont += 1
 
     #guardar el archivo
-    ruta = os.getcwd()
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
     book.save("datos_de_monedas.xlsx")
-    os.chdir(ruta)
+
+    print(os.getcwd(), "xls")
     
 def dato(lista):
     total = len(lista)
