@@ -1,6 +1,26 @@
 import os, json, openpyxl 
 import pandas as pd
 
+def partir(L, bajo, alto, l):
+    pivote = L[alto]
+    i = bajo -1
+
+    for j in range(bajo, alto):
+        if L[j] <= pivote:
+            i += 1
+            l[i], l[j] = l[j], l[i]
+            L[i], L[j] = L[j], L[i]
+    L[i+1], L[alto] = L[alto] , L[i+1]
+    
+    l[i+1], l[alto] = l[alto], l[i+1]
+    return i+1
+
+def quicksort(L, bajo, alto, l):
+    if bajo<alto:
+        p = partir(L, bajo, alto, l)
+        quicksort(L, bajo, p-1, l)
+        quicksort(L, p+1, alto, l)
+
 
 def archivo(lista,ruta, nombre):
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
@@ -14,7 +34,7 @@ def archivo(lista,ruta, nombre):
     hoja = archive.active
     return hoja, archive
 
-def estadisticas(total, opcion,ruta):
+def estadisticas(total, opcion, ruta):
     total = total + 2
 
     if opcion == 1:
@@ -33,19 +53,38 @@ def estadisticas(total, opcion,ruta):
         archive.save("precios.xlsx")
 
     elif opcion == 2:
+        nombre = []
+        por = []
+        os.chdir(f"{ruta}\\ReportesDeConsultaApi")
+        with open("datos_de_monedas.json") as data:
+           datas = json.load(data)
+        for i in datas:
+            por.append(i["percent_change_7d"])
+            nombre.append(i["name"])
+        data.close() #cerramos el json
+
+        quicksort(por, 0, len(por)-1, nombre) #metodo de ordenamiento
+
+        print(por, nombre)
+          
+        #archivo excel
         lista = [2,5] 
         hoja, archive = archivo(lista,ruta ,"porcent_cambio")
 
-        for i in range(2, total):
-            nombre = hoja[f"A{i}"].value
-            por = hoja[f"B{i}"].value
+        cont = 0
+        #cuando ya este orddenado segun el metodo quicksort
+        for i in range(2, total):   
+            name = nombre[cont]     
+            porcent = por[cont] 
 
-            if por>0:
-                hoja[f"C{i}"] = nombre
-                hoja[f"D{i}"] = por
-                print(f"{nombre} - {por}%")
-        
+            hoja[f"C{i}"] = name
+            hoja[f"D{i}"] = porcent
+            print(f"{name} - {porcent}%")
+            cont += 1
+
         archive.save("porcent_cambio.xlsx")
+        
+
 
     elif opcion == 3:
         lista = [2,8,9] 

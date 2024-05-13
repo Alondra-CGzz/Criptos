@@ -1,5 +1,6 @@
 import os, json
 def consultar_dato(lista_monedas,index_moneda, opcion_menu, ruta):
+    print(os.getcwd())
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
 
     #abrimos el archivo 
@@ -10,7 +11,7 @@ def consultar_dato(lista_monedas,index_moneda, opcion_menu, ruta):
     opciones = ["id","symbol","rank","percent_change_24h","percent_change_7d","price_btc","volume24a","csupply","msupply"]
     opciones_nombre = [ "Id", "Simbología", "Rank", "Porcentaje cada 24 horas", "Porcentaje cada 7 días", "Precio en btc", "Coins comercializadas", "Suministro circulante", "Suministro máximo"]
 
-    opcion_menu = opcion_menu - 1
+    opcion_menu = opcion_menu - 1 #porque los indices comienzan desde 0
     index_opcion = opciones[opcion_menu]
     print(f"""
         *{lista_monedas[index_moneda].upper()}*

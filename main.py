@@ -15,13 +15,14 @@ if __name__ == '__main__':
          **** ACCESO A LA INFORMACIÓN DE CRIPTOMONEDAS ****""")
     x = True
     
-    monedas = data.coins(0, [])
-    data.crear_json_coins(len(monedas), ruta_dir_padre)
-    data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
-    """except:
+    try:
+        monedas = data.coins(0, [])
+        data.crear_json_coins(len(monedas), ruta_dir_padre)
+        data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
+    except:
         limpiar()
         print("\n\tLo sentimos, no es posible consumir la api\n")
-        x = False"""
+        x = False
 
     #menu
     while x:
@@ -105,10 +106,12 @@ if __name__ == '__main__':
                 print("\n***Ingrese una opción válida***")
                 continue 
 
-        except ValueError:
+        except:
             limpiar()
             print("\n***Ingrese un valor númerico válido***")
             continue
 
 
 
+
+cal.estadisticas(len(monedas), 2, ruta_dir_padre)
