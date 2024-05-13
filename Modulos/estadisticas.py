@@ -1,5 +1,6 @@
 import os, json, openpyxl 
 import pandas as pd
+import numpy as np
 
 def partir(L, bajo, alto, l):
     pivote = L[alto]
@@ -59,14 +60,13 @@ def estadisticas(total, opcion, ruta):
         with open("datos_de_monedas.json") as data:
            datas = json.load(data)
         for i in datas:
-            por.append(i["percent_change_7d"])
+            num = float(i["percent_change_7d"])
+            por.append(num)
             nombre.append(i["name"])
         data.close() #cerramos el json
 
         quicksort(por, 0, len(por)-1, nombre) #metodo de ordenamiento
 
-        print(por, nombre)
-          
         #archivo excel
         lista = [2,5] 
         hoja, archive = archivo(lista,ruta ,"porcent_cambio")
@@ -83,6 +83,25 @@ def estadisticas(total, opcion, ruta):
             cont += 1
 
         archive.save("porcent_cambio.xlsx")
+        
+        #Lista de recomendacion
+        def closest(lst, K):   
+            lst = np.asarray(lst)
+            idx = (np.abs(lst - K)).argmin()
+            return lst[idx]
+        
+        #hay q eliminar el elemento de ambas listas
+        for i in range(0,5): 
+            num = closest(por, 0)
+            indice = por.index(num)
+
+            name = nombre[indice]
+            porcent = por[indice]
+            print(f"{name} - {porcent}%...")
+            del name, porcent
+
+
+          
         
 
 
