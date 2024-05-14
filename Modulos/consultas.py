@@ -1,6 +1,5 @@
 import os, json
 def consultar_dato(lista_monedas,index_moneda, opcion_menu, ruta):
-    print(os.getcwd())
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
 
     #abrimos el archivo 
@@ -13,7 +12,14 @@ def consultar_dato(lista_monedas,index_moneda, opcion_menu, ruta):
 
     opcion_menu = opcion_menu - 1 #porque los indices comienzan desde 0
     index_opcion = opciones[opcion_menu]
-    print(f"""
+
+    if opciones_nombre[opcion_menu] == "Suministro máximo" and datos[index_moneda][index_opcion] == None:
+        print(f"""
+        *{lista_monedas[index_moneda].upper()}*
+    {opciones_nombre[opcion_menu]}: Sin limite\n""")
+        
+    else:
+        print(f"""
         *{lista_monedas[index_moneda].upper()}*
     {opciones_nombre[opcion_menu]}: {datos[index_moneda][index_opcion]}\n""")
 

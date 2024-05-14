@@ -67,7 +67,7 @@ def dato(lista):
     while True: 
         try: 
             moneda = int(input("\nIngrese el número de la moneda que desea buscar: "))
-            if moneda<0 or moneda>total:
+            if moneda<0 or moneda>=total:
                 print("Ingrese un valor númerico valido")
             else:
                 break

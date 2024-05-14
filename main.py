@@ -113,3 +113,4 @@ if __name__ == '__main__':
             continue
 
 
+cal.estadisticas(len(monedas), 2, ruta_dir_padre)

@@ -67,7 +67,6 @@ def estadisticas(total, opcion, ruta):
         print(f"\n\tLos precios varian de ${mini} a ${maxi}")
 
 
-
     elif opcion == 2:
         nombre = []
         por = []
