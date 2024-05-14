@@ -84,6 +84,8 @@ def estadisticas(total, opcion, ruta):
         #archivo excel
         lista = [2,5] 
         hoja, archive = archivo(lista,ruta ,"porcent_cambio")
+        hoja["C1"] = "Moneda"
+        hoja["D1"] = "Porcentaje ordenado"
 
         cont = 0
         #cuando ya este orddenado segun el metodo quicksort
@@ -145,6 +147,6 @@ def estadisticas(total, opcion, ruta):
                 hoja[f"E{i}"] = valor
                 print(f"\"{moneda}\" es {valor}%")
 
-        archive.save("porcentajes.xlsx")
+        archive.save("porcentajes_suministro.xlsx")
 
     os.chdir(ruta)

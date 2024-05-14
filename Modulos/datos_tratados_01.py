@@ -30,7 +30,7 @@ def acceder_json(ruta):
         consulta.consultar_dato(monedas, coin, opcion2, ruta)
 
     except FileNotFoundError: 
-        print("No hay información reciente")
+        print("\nNo hay información reciente")
     os.chdir(ruta) #porque habiamos cambiado de ruta y volvemos a la del directorio Pia
     
 

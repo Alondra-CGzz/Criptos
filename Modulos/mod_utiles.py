@@ -2,8 +2,6 @@
 #hacer menu con un array
 import os
 
-def cambiar(ruta, dir):
-    os.chdir(f"{ruta}\\{dir}")
 
 def validar(msj, lim):
     while True:

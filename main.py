@@ -25,9 +25,10 @@ if __name__ == '__main__':
         data_descargada.acceder_json(ruta_dir_padre)
         x = False
 
+
     #menu
     while x:
-        mod.crear_dir(ruta_dir_padre)
+        mod.crear_dir(ruta_dir_padre) #crea las carpetas
         try: 
             opcion = int(input("""       
 
@@ -77,7 +78,10 @@ if __name__ == '__main__':
         3) Porcentajes según el suministro de monedas actual
                       
     Seleccione una opción: """, 3)   
-                cal.estadisticas(len(monedas), opcion3, ruta_dir_padre)
+                try:
+                    cal.estadisticas(len(monedas), opcion3, ruta_dir_padre)
+                except:
+                    print("\nNo existe información reciente")
 
             elif opcion == 4:
                 opcion4 = mod.validar("""
@@ -111,6 +115,3 @@ if __name__ == '__main__':
             limpiar()
             print("\n***Ingrese un valor númerico válido***")
             continue
-
-
-cal.estadisticas(len(monedas), 2, ruta_dir_padre)
