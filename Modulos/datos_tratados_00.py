@@ -32,9 +32,6 @@ def crear_json_coins(limite, ruta):
     with open("datos_de_monedas.json", "w") as archivo: 
         json.dump(datos, archivo, indent = 3)
 
-    rut = os.getcwd()
-    print(rut, "jso")
-
 
 def crear_xlsx_coins(limite, ruta):
     datos = request(limite)
@@ -64,7 +61,6 @@ def crear_xlsx_coins(limite, ruta):
     os.chdir(f"{ruta}\\ReportesDeConsultaApi")
     book.save("datos_de_monedas.xlsx")
 
-    print(os.getcwd(), "xls")
     
 def dato(lista):
     total = len(lista)

@@ -21,7 +21,8 @@ if __name__ == '__main__':
         data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
     except:
         limpiar()
-        print("\n\tLo sentimos, no es posible consumir la api\n")
+        print("\n\tLo sentimos, no es posible consumir la api, sin embargo accederemos a los ultimos registros\n")
+        data_descargada.acceder_json(ruta_dir_padre)
         x = False
 
     #menu
@@ -112,6 +113,3 @@ if __name__ == '__main__':
             continue
 
 
-
-
-cal.estadisticas(len(monedas), 2, ruta_dir_padre)

@@ -45,13 +45,28 @@ def estadisticas(total, opcion, ruta):
         hoja["D2"] = "Max"
         hoja["E2"] = "Min"
 
+        #formulas de excel
         hoja["D3"] = f"=MAX(B2:B{total})"
         hoja["E3"] = f"=MIN(B2:B{total})"
-        max = hoja["D3"].value
-        min = hoja["E3"].value
-
-        print(f"Los precios varian de {min}-{max} ")
         archive.save("precios.xlsx")
+        
+        os.chdir(f"{ruta}\\ReportesDeConsultaApi")
+        with open("datos_de_monedas.json") as data:
+           datas = json.load(data)
+
+        mon =  []
+        for i in datas:
+            num = float(i["price_btc"])
+            mon.append(num)
+        data.close()
+        
+        maxi = max(mon)
+        mini = min(mon)
+        
+
+        print(f"\n\tLos precios varian de ${mini} a ${maxi}")
+
+
 
     elif opcion == 2:
         nombre = []
@@ -79,7 +94,6 @@ def estadisticas(total, opcion, ruta):
 
             hoja[f"C{i}"] = name
             hoja[f"D{i}"] = porcent
-            print(f"{name} - {porcent}%")
             cont += 1
 
         archive.save("porcent_cambio.xlsx")
@@ -91,19 +105,18 @@ def estadisticas(total, opcion, ruta):
             return lst[idx]
         
         #hay q eliminar el elemento de ambas listas
+        print("""
+            Según su porcentaje de cambio cada 24 hrs los 5 mejores son:""")
         for i in range(0,5): 
             num = closest(por, 0)
             indice = por.index(num)
 
             name = nombre[indice]
             porcent = por[indice]
-            print(f"{name} - {porcent}%...")
-            del name, porcent
-
-
+            print(f"\t{name} - {porcent}%")
+            nombre.remove(name)
+            por.remove(porcent)
           
-        
-
 
     elif opcion == 3:
         lista = [2,8,9] 
