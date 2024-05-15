@@ -4,6 +4,7 @@ from Modulos import consultas as info
 from Modulos import estadisticas as cal
 from Modulos import datos_tratados_00 as data
 from Modulos import datos_tratados_01 as data_descargada
+from Modulos import graficas as gf
 ruta_dir_padre= os.path.dirname(os.path.abspath(__file__))
 os.chdir(ruta_dir_padre)
 
@@ -87,14 +88,12 @@ if __name__ == '__main__':
                 opcion4 = mod.validar("""
              - Datos -             
                                                                        
-        1) Porcentaje de cambio cada 24 horas
-        5) Porcentaje de cambio cada 7 días
-        6) Precio en btc
-        7) Número de monedas que se han comercializado
-        8) Suministro circulante
-        9) Suministro máximo posible
+        1) Porcentaje de cambio cada 7 días
+        2) Precio en btc
+        3) Monedas comercializadas
                       
-    Seleccione una opción: """, 9)  
+    Seleccione una opción: """, 3)  
+                gf.grafica(monedas, ruta_dir_padre, opcion4)
                 
             elif opcion == 5:
                 print("\n\tTodo se borro satisfactoriamente\n")
@@ -115,3 +114,4 @@ if __name__ == '__main__':
             limpiar()
             print("\n***Ingrese un valor númerico válido***")
             continue
+

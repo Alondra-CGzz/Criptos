@@ -100,7 +100,7 @@ def coins(cont,lista, start = 0,  iterador = 0,  url = "https://api.coinlore.net
         
         
         continuar = mod.validar("\nExiste un limite de 99 datos - ¿Desea continuar listando? \t1-Si \t2-No\n",2)
-        while iterador < 8:
+        while iterador < 9:
             if continuar == 1 :
                 coins(cont, lista, start= start+11, iterador = iterador+1)
             break
