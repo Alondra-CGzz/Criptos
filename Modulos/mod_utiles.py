@@ -21,6 +21,7 @@ def crear_dir(ruta):
         os.chdir(f"{ruta}\\ReportesDeConsultaApi")
     except:
         os.makedirs(f"{ruta}\\ReportesDeConsultaApi")
-        os.makedirs(f"{ruta}\\ReportesDeDatosNuméricos")
+        os.makedirs(f"{ruta}\\ReportesDeDatosNuméricos")     
+        os.makedirs(f"{ruta}\\Gráficas")
     os.chdir(ruta)
 

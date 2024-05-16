@@ -30,6 +30,7 @@ if __name__ == '__main__':
     #menu
     while x:
         mod.crear_dir(ruta_dir_padre) #crea las carpetas
+        
         try: 
             opcion = int(input("""       
 
@@ -97,8 +98,10 @@ if __name__ == '__main__':
                 
             elif opcion == 5:
                 print("\n\tTodo se borro satisfactoriamente\n")
+                shutil.rmtree(f"{ruta_dir_padre}\\Gráficas")
                 shutil.rmtree(f"{ruta_dir_padre}\\ReportesDeConsultaApi")
                 shutil.rmtree(f"{ruta_dir_padre}\\ReportesDeDatosNuméricos")
+
 
 
             elif opcion == 6:
