@@ -12,9 +12,9 @@ def limpiar():
     os.system("cls")
 
 if __name__ == '__main__':
-    print("""
-         **** ACCESO A LA INFORMACIÓN DE CRIPTOMONEDAS ****""")
     x = True
+    print("""
+            API DE CRIPTOMONEDAS""")
     
     try:
         monedas = data.coins(0, [])
@@ -22,10 +22,7 @@ if __name__ == '__main__':
         data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
     except:
         limpiar()
-        print("\n\tLo sentimos, no es posible consumir la api, sin embargo accederemos a los ultimos registros\n")
-        data_descargada.acceder_json(ruta_dir_padre)
-        x = False
-
+        print("\n\tLo sentimos, no es posible consumir la api, sin embargo accederemos con los ultimos registros\n")
 
     #menu
     while x:
@@ -44,29 +41,35 @@ if __name__ == '__main__':
         6) Salir
             
     Seleccione una opción: """))
+            limpiar()
 
 
             if opcion == 1:
-                print("\n\t -- Actualización de datos --\n")
-                monedas = data.coins(0, [])
-                data.crear_json_coins(len(monedas), ruta_dir_padre)
-                data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
-                coin = data.dato(monedas)
+                try:
+                    print("\n\t -- Actualización de datos --\n")
+                    monedas = data.coins(0, [])
+                    data.crear_json_coins(len(monedas), ruta_dir_padre)
+                    data.crear_xlsx_coins(len(monedas), ruta_dir_padre)
+                    coin = data.dato(monedas)
 
-                opcion1 = mod.validar("""
-    - Información posible a consultar -      
-                                                  
-        1) Id
-        2) Nombre
-        3) Rank
-        4) Porcentaje de cambio cada 24 horas
-        5) Porcentaje de cambio cada 7 días
-        6) Precio en btc
-        7) Número de monedas que se han comercializado
-        8) Suministro circulante
-        9) Suministro máximo posible
-                      """, 9)         
-                info.consultar_dato(monedas,coin, opcion1, ruta_dir_padre)
+                    opcion1 = mod.validar("""
+        - Información posible a consultar -      
+                                                        
+            1) Id
+            2) Nombre
+            3) Rank
+            4) Porcentaje de cambio cada 24 horas
+            5) Porcentaje de cambio cada 7 días
+            6) Precio en btc
+            7) Número de monedas que se han comercializado
+            8) Suministro circulante
+            9) Suministro máximo posible
+                            """, 9)         
+                    info.consultar_dato(monedas,coin, opcion1, ruta_dir_padre)
+
+                except:
+                    print("Esta opcion es solo posible con internet")
+                   
 
             elif opcion == 2:  
                 data_descargada.acceder_json(ruta_dir_padre)
@@ -80,10 +83,7 @@ if __name__ == '__main__':
         3) Porcentajes según el suministro de monedas actual
                       
     Seleccione una opción: """, 3)   
-                try:
-                    cal.estadisticas(len(monedas), opcion3, ruta_dir_padre)
-                except:
-                    print("\nNo existe información reciente")
+                cal.estadisticas(opcion3, ruta_dir_padre)
 
             elif opcion == 4:
                 opcion4 = mod.validar("""
@@ -94,14 +94,13 @@ if __name__ == '__main__':
         3) Monedas comercializadas
                       
     Seleccione una opción: """, 3)  
-                gf.grafica(monedas, ruta_dir_padre, opcion4)
+                gf.grafica(ruta_dir_padre, opcion4)
                 
             elif opcion == 5:
                 print("\n\tTodo se borro satisfactoriamente\n")
                 shutil.rmtree(f"{ruta_dir_padre}\\Gráficas")
                 shutil.rmtree(f"{ruta_dir_padre}\\ReportesDeConsultaApi")
                 shutil.rmtree(f"{ruta_dir_padre}\\ReportesDeDatosNuméricos")
-
 
 
             elif opcion == 6:
@@ -117,4 +116,3 @@ if __name__ == '__main__':
             limpiar()
             print("\n***Ingrese un valor númerico válido***")
             continue
-

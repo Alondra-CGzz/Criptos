@@ -51,7 +51,8 @@ def g_3(ruta):
 
 
 
-def grafica(lista_monedas, ruta, opcion):
+def grafica(ruta, opcion):
+
     if opcion == 1:
        g_1(ruta)
 

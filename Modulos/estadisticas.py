@@ -1,6 +1,7 @@
 import os, json, openpyxl 
 import pandas as pd
 import numpy as np
+from Modulos import datos_tratados_00 as modu
 
 def partir(L, bajo, alto, l):
     pivote = L[alto]
@@ -35,8 +36,14 @@ def archivo(lista,ruta, nombre):
     hoja = archive.active
     return hoja, archive
 
-def estadisticas(total, opcion, ruta):
-    total = total + 2
+def estadisticas(opcion, ruta):
+    os.chdir(f"{ruta}\\ReportesDeConsultaApi")
+    with open("datos_de_monedas.json") as arch: 
+            datos = json.load(arch)
+    monedas = modu.tot_mon(datos)
+    total_monedas= len(monedas)
+    total = total_monedas + 2
+    arch.close()
 
     if opcion == 1:
         lista = [2,6] 

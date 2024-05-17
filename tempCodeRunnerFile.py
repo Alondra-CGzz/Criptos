@@ -1,1 +1,0 @@
- según el porc

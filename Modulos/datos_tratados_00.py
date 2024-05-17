@@ -87,7 +87,7 @@ def liste(datos, lista, cont):
 
 def coins(cont,lista, start = 0,  iterador = 0,  url = "https://api.coinlore.net/api/tickers/"):  
     """Por si acaso el limite lo queremos de 11 datos lo marcare con #"""
-    response = requests.get(f"{url}?start={start}&limit=11")#
+    response = requests.get(f"{url}?start={start}&limit=10")#
 
     if response.status_code == 200:
         archivo = json.loads(response.text)
@@ -99,12 +99,20 @@ def coins(cont,lista, start = 0,  iterador = 0,  url = "https://api.coinlore.net
             lista, cont = liste(datos, lista, cont)
         
         
-        continuar = mod.validar("\nExiste un limite de 99 datos - ¿Desea continuar listando? \t1-Si \t2-No\n",2)
-        while iterador < 8:
+        continuar = mod.validar("\nExiste un limite de 100 datos - ¿Desea continuar listando? \t1-Si \t2-No\n",2)
+        while iterador < 9:
             if continuar == 1:
                 coins(cont, lista, start= start+11, iterador = iterador+1)
             break
 
 
+    return lista
+
+
+
+def tot_mon(datos):
+    lista = []
+    for coin in datos:
+        lista.append(coin)
     return lista
 
